@@ -9,7 +9,7 @@ export XBPS_ARCH=x86_64
 STATIC_XBPS_PATH=/opt/xbps-static-static-0.56_5
 
 # remember this is non-reboot patching, so don't include kernel or glibc
-EXCLUDE_PACKAGES="linux glibc"
+EXCLUDE_PACKAGES="linux linux5.4 glibc"
 
 # temporary file names
 TMP_CHECK=/tmp/autopatch-check.txt
