@@ -15,12 +15,17 @@ EXCLUDE_PACKAGES="linux glibc"
 TMP_CHECK=/tmp/autopatch-check.txt
 TMP_UPDATE=/tmp/autopatch-update.txt
 
+FLAGS_CHECK=-Sun
+FLAGS_PIN=-m hold
+FLAGS_UPDATE=-uy -c /tmp/xbps-cache
+FLAGS_UNPIN=-m unhold
+
 # sometimes we need to do this more than once, so loop forever and break out when no packages found
 while true; do
 
 	# check for updates
 	echo Checking for updates...
-	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static -Sun >${TMP_CHECK}
+	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static ${FLAGS_CHECK} >${TMP_CHECK}
 
 	# remove excluded packages
 	for PKG in ${EXCLUDE_PACKAGES}; do
@@ -49,16 +54,16 @@ while true; do
 	# pin excluded packages
 	echo Pinning packages: ${EXCLUDE_PACKAGES}
 	for PKG in ${EXCLUDE_PACKAGES}; do
-		${STATIC_XBPS_PATH}/usr/bin/xbps-pkgdb.static -m hold ${PKG}
+		${STATIC_XBPS_PATH}/usr/bin/xbps-pkgdb.static ${FLAGS_PIN} ${PKG}
 	done
 
 	# install updates
-	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static -uy 2>&1 | logger -t autopatch -s 2>&1
+	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static ${FLAGS_UPDATE} 2>&1 | logger -t autopatch -s 2>&1
 
 	# unpin excluded packages
 	echo Unpinning packages: ${EXCLUDE_PACKAGES}
 	for PKG in ${EXCLUDE_PACKAGES}; do
-		${STATIC_XBPS_PATH}/usr/bin/xbps-pkgdb.static -m unhold ${PKG}
+		${STATIC_XBPS_PATH}/usr/bin/xbps-pkgdb.static ${FLAGS_UNPIN} ${PKG}
 	done
 
 # end infinite loop
