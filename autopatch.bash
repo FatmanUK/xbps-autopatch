@@ -15,13 +15,17 @@ EXCLUDE_PACKAGES="linux linux5.4 glibc"
 TMP_CHECK=/tmp/autopatch-check.txt
 TMP_UPDATE=/tmp/autopatch-update.txt
 
-FLAGS_CHECK="-Sun"
+FLAGS_UPDATE_REPO="-S"
+FLAGS_CHECK="-un"
 FLAGS_PIN="-m hold"
 FLAGS_UPDATE="-uy -c /tmp/xbps-cache"
 FLAGS_UNPIN="-m unhold"
 
 # sometimes we need to do this more than once, so loop forever and break out when no packages found
 while true; do
+
+	# refresh repository index
+	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static ${FLAGS_UPDATE_REPO}
 
 	# check for updates
 	echo Checking for updates...
