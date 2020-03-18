@@ -15,10 +15,10 @@ EXCLUDE_PACKAGES="linux glibc"
 TMP_CHECK=/tmp/autopatch-check.txt
 TMP_UPDATE=/tmp/autopatch-update.txt
 
-FLAGS_CHECK=-Sun
-FLAGS_PIN=-m hold
-FLAGS_UPDATE=-uy -c /tmp/xbps-cache
-FLAGS_UNPIN=-m unhold
+FLAGS_CHECK="-Sun"
+FLAGS_PIN="-m hold"
+FLAGS_UPDATE="-uy -c /tmp/xbps-cache"
+FLAGS_UNPIN="-m unhold"
 
 # sometimes we need to do this more than once, so loop forever and break out when no packages found
 while true; do
