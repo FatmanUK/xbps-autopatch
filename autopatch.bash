@@ -1,6 +1,9 @@
 #!/bin/bash
 # need bash for [[
 
+# set arch
+export XBPS_ARCH=x86_64
+
 # static xbps, download to /opt and extract
 # for me 59.5 is borked so currently I'm on 56.5, still seems to work ok
 STATIC_XBPS_PATH=/opt/xbps-static-static-0.56_5
@@ -50,7 +53,7 @@ while true; do
 	done
 
 	# install updates
-	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static -uy 2>&1 | logger -t autopatch
+	${STATIC_XBPS_PATH}/usr/bin/xbps-install.static -uy 2>&1 | logger -t autopatch -s 2>&1
 
 	# unpin excluded packages
 	echo Unpinning packages: ${EXCLUDE_PACKAGES}
