@@ -11,6 +11,9 @@ STATIC_XBPS_PATH=/opt/xbps-static-static-0.56_5
 # remember this is non-reboot patching, so don't include kernel or glibc
 EXCLUDE_PACKAGES="linux linux4.12 linux4.18 linux4.19 linux5.2 linux5.4 glibc"
 
+# gives that horrible "restart required" page on new tabs
+EXCLUDE_PACKAGES+=" firefox"
+
 # temporary file names
 TMP_CHECK=/tmp/autopatch-check.txt
 TMP_UPDATE=/tmp/autopatch-update.txt
